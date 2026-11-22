@@ -1,0 +1,68 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg-primary: #f2e9e4;
+    --bg-secondary: #ffffff;
+    --bg-tertiary: #eadeda;
+    --border-color: #c9ada7;
+    --text-primary: #22223b;
+    --text-secondary: #4a4e69;
+    --text-muted: #9a8c98;
+  }
+
+  .dark {
+    --bg-primary: #22223b;
+    --bg-secondary: #303345;
+    --bg-tertiary: #3d405a;
+    --border-color: #4a4e69;
+    --text-primary: #f2e9e4;
+    --text-secondary: #c9ada7;
+    --text-muted: #9a8c98;
+  }
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(154, 140, 152, 0.45);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(74, 78, 105, 0.65);
+}
+
+/* Notion & Linear subtle glow effects */
+.glow-card {
+  position: relative;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glow-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -10px rgba(74, 78, 105, 0.25);
+}
+
+/* Glass effect */
+.glass {
+  background: rgba(242, 233, 228, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.dark .glass {
+  background: rgba(34, 34, 59, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}

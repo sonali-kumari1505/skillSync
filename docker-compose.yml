@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: skillsync-mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+  ai-engine:
+    build:
+      context: ./ai-engine
+    container_name: skillsync-ai
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+
+  backend:
+    build:
+      context: ./backend
+    container_name: skillsync-backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://mongodb:27017/skillsync
+      - JWT_SECRET=skillsync_jwt_super_secret_production_ready_key_2026
+      - AI_SERVICE_URL=http://ai-engine:8000
+      - CLIENT_URL=http://localhost:5173
+    depends_on:
+      - mongodb
+      - ai-engine
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: skillsync-frontend
+    restart: always
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:5000/api
+      - VITE_SOCKET_URL=http://localhost:5000
+    depends_on:
+      - backend
+
+volumes:
+  mongo_data:
